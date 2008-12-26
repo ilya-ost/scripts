@@ -1,0 +1,5 @@
+#!/bin/bash
+
+s:\\:\\textbackslash:g;
+s:\\ :\\textbackslash{}:g;
+s:[&$%#_{}]:\\&:g;

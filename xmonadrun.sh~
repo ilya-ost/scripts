@@ -1,0 +1,25 @@
+#!/bin/sh
+# xmonad use with a pipe talking to an external program
+PIPE=$HOME/.xmonad/status
+rm -f $PIPE
+PATH=${PATH}:/sbin mkfifo -m 600 $PIPE
+[ -p $PIPE ] || exit
+
+xmonad > $PIPE &
+xmpid=$!
+xmobar &
+sleep 1
+conky 
+conky -c ~/.conkyrc1
+stalonetray &
+klipper &
+qstardict &
+sleep 2
+qdbus "org.qstardict.dbus" "/qstardict" "org.freedesktop.DBus.Properties.Set" "org.qstardict.dbus" "mainWindowVisible" "$( ! $(qdbus org.qstardict.dbus /qstardict org.freedesktop.DBus.Properties.Get org.qstardict.dbus mainWindowVisible))"
+~/.dropbox-dist/dropboxd &
+run-gnotify.sh &
+
+# wait for xmonad
+wait $xmpid
+
+killall xmobar

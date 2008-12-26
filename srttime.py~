@@ -1,0 +1,25 @@
+#!/usr/bin/env python2.5
+
+import sys
+import os
+import re
+
+if len(sys.argv) == 3:
+    in_name = sys.argv[1]
+    time = int(sys.argv[2])
+else:
+    print "usage: srttime.py filename time"
+    exit(1)
+
+in_file = open(in_name, "r")
+out_file = open(in_name + "-time(%d)" % time, "w")
+
+for in_line in in_file.xreadlines():
+    out_line = in_line
+    if re.search("-->", in_line):
+        time_a, time_b = re.split(" --> ", in_line)
+        time_a = 3600000 * int(time_a[0:2]) + 60000 * int(time_a[3:5]) + 1000 * int(time_a[6:8]) + int(time_a[9:12])
+        time_b = 3600000 * int(time_b[0:2]) + 60000 * int(time_b[3:5]) + 1000 * int(time_b[6:8]) + int(time_b[9:12])
+        time_a += time
+        time_b += time
+        print time_a, time_b

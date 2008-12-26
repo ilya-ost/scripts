@@ -1,0 +1,4 @@
+auto lo wlan0
+iface lo inet loopback
+iface wlan0 inet dhcp
+wireless-essid ilyahome

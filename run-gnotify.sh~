@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true
+do
+    ehco 1
+done
