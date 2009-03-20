@@ -1,2 +1,0 @@
-find . -name '*.7z' -print | while read f; do; dir=$(dirname "$f")/$(basename "$f" .7z); mkdir $dir ; 7z -o${dir} e "$f"; rm "$f" ; done;
-
